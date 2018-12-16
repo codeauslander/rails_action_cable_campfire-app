@@ -9,7 +9,9 @@ App.room = App.cable.subscriptions.create("RoomChannel", {
 
   received: function(data) {
     // Called when there's incoming data on the websocket for this channel
-    alert(data['message']);
+    console.log(data);
+    document.getElementById("messages").insertAdjacentHTML( 'beforeend', data['message']);
+    // alert(data['message']);
   },
 
   speak: function(message) {
@@ -21,6 +23,7 @@ App.room = App.cable.subscriptions.create("RoomChannel", {
 
 (function() {
   document.addEventListener('keypress', function(event) {
+  // document.addEventListener('keypress','[data-behaivoir~=room_speaker]', function(event) {
     if (event.keyCode === 13) {
       // console.log(App.room);
       App.room.speak(event.target.value);
