@@ -13,6 +13,8 @@ App.room = App.cable.subscriptions.create("RoomChannel", {
   },
 
   speak: function(message) {
+    console.log('speak');
+    // ActionCable.server.broadcast("room_channel", {message: message});
     return this.perform('speak',{message: message});
   },
 });
@@ -20,6 +22,7 @@ App.room = App.cable.subscriptions.create("RoomChannel", {
 (function() {
   document.addEventListener('keypress', function(event) {
     if (event.keyCode === 13) {
+      // console.log(App.room);
       App.room.speak(event.target.value);
       event.target.value = '';
       return event.preventDefault();
